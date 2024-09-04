@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { context } from '../App';
 
 export default function TabList() {
@@ -7,12 +7,14 @@ export default function TabList() {
 
   return (
     <div id="tablist-wrapper">
-      {songs.map((song, id) => {
+      {Object.keys(songs).map((songTitle, id) => {
         return (
-          <Link to="/tabview" key={id} className="song-display">
-            <h3>{song.title}</h3>
-            <p>{song.artist}</p>
-          </Link>
+          <div key={id} className="song-display">
+            <Link to={`/guitar-tabs/${songTitle}`} className="song-title">
+              <h2>{songs[songTitle].title}</h2>
+            </Link>
+            <p>{songs[songTitle].artist}</p>
+          </div>
         );
       })}
       {/* <Outlet /> */}

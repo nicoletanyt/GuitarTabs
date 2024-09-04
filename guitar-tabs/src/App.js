@@ -1,22 +1,26 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import "./index.css"
 import Homepage from "./components/Homepage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TabView from "./components/TabView";
-import TabList from "./components/TabList";
 import { Song } from "./Objects";
 
 export const context = React.createContext(null);
 
 function App() {
-  const [songs, setSongs] = useState([new Song("Song 1", "Arist 1", "")]);
+
+  // the key of the dictionary is the title + artist joined
+  const [songs, setSongs] = useState({
+    "song-1-artist-1": new Song("Song 1", "Artist 1", ""),
+    "song-2-artist-1": new Song("Song 2", "Artist 1", ""),
+});
 
   return (
     <context.Provider value={{ songs }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/tabview" element={<TabView />} />
+          <Route path="/guitar-tabs/:id" element={<TabView />} />
         </Routes>
       </BrowserRouter>
     </context.Provider>
