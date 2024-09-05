@@ -72,6 +72,7 @@ input {
   cursor: pointer;
   text-decoration: none;
   color: black;
+  white-space: nowrap;
 }
 
 #tablist-wrapper {
@@ -85,7 +86,7 @@ input {
   overflow-x: hidden;
   padding-bottom: 2%;
 }
-#tablist-wrapper::-webkit-scrollbar {
+#tablist-wrapper::-webkit-scrollbar, #create-view::-webkit-scrollbar {
   display: none;
 }
 .song-display {

@@ -17,7 +17,7 @@ function App() {
 });
 
   return (
-    <context.Provider value={{ songs }}>
+    <context.Provider value={{ songs, setSongs }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Homepage />} />

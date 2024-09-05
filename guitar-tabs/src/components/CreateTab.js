@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import TabView from './TabView';
-import { Tab } from '../Objects';
+import { Song, Tab } from '../Objects';
 import { FaLessThan, FaCheck, FaPlus } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
+import { context } from '../App';
 
 export default function CreateTab() {
+    const { songs, setSongs } = useContext(context);
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
   const tabSize = 10
@@ -28,6 +30,13 @@ export default function CreateTab() {
     ]);
   };
 
+  const saveSong = () => {
+    console.log(setSongs)
+    let dictKey =
+      title.toLowerCase().split(" ").join("-") + "-" + artist.toLowerCase().split(" ").join("-");
+    setSongs((prev) => ({ ...prev, [dictKey]: new Song(title, artist, tabs) }));
+  }
+
   return (
     <div id="create-view">
       <div id="create-top-bar">
@@ -35,7 +44,7 @@ export default function CreateTab() {
           <FaLessThan />
           <p>Back</p>
         </Link>
-        <Link to="/" id="done-btn" className="button">
+        <Link to="/" id="done-btn" className="button" onClick={saveSong}>
           <FaCheck />
           <p>Done</p>
         </Link>
