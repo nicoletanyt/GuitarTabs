@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import Tabbar from './Tabbar'
-import TabList from './TabList'
+import SongList from './SongList'
 
 export default function Homepage() {
 
   return (
     <div id='homepage'>
         <Tabbar/>
-        <TabList/>
+        <SongList/>
     </div>
   )
 }

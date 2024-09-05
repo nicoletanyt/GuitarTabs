@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "./index.css"
 import Homepage from "./components/Homepage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import TabView from "./components/TabView";
+import SongView from "./components/SongView";
 import { Song } from "./Objects";
+import CreateTab from "./components/CreateTab";
 
 export const context = React.createContext(null);
 
@@ -20,7 +21,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/guitar-tabs/:id" element={<TabView />} />
+          <Route path="/guitar-tabs/:id" element={<SongView />} />
+          <Route path="/create-tab" element={<CreateTab />} />
         </Routes>
       </BrowserRouter>
     </context.Provider>

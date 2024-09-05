@@ -5,3 +5,10 @@ export class Song {
         this.tabs = tabs
     }
 }
+
+export class Tab {
+    constructor(lyric, notes) {
+        this.lyric = lyric
+        this.notes = notes
+    }
+}

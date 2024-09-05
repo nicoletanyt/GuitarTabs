@@ -64,8 +64,10 @@ p {
   border: 1px solid black;
   border-radius: 5px;
   background-color: lightgray;
-  width: 8%;
+  width: 13%;
   cursor: pointer;
+  text-decoration: none;
+  color: black;
 }
 
 #tablist-wrapper {
@@ -94,7 +96,76 @@ p {
   color: black;
 }
 
-#tabview-wrapper {
+#tabview-wrapper, #create-view {
   padding: 3%;
   padding-top: 1%;
+}
+
+#create-view {
+  height: 100%;
+  box-sizing: border-box;
+}
+#create-top-bar {
+  display: flex;
+  justify-content: space-between;
+}
+.button {
+  display: inline-flex;
+  border-style: none;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 20px;
+  border: 2px solid black;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  height: 5%;
+  font-size: small;
+  padding: 1.5%;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.button p {
+  padding-left: 10%;
+}
+#done-btn {
+  background-color: lightgreen;
+}
+#song-detail-input {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+#song-detail-input input {
+  padding: 1%;
+  font-size: 1em;
+  margin: 3%;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+}
+.notes {
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 0.2em;
+  display: inline-flex;
+  align-items: center;
+}
+.string-row {
+  display: flex;
+  font-size: large;
+}
+.string-row p {
+  margin: 0;
+}
+.string-letter {
+  padding-right: 2%;
+  font-weight: bold;
+}
+.note-input {
+  font-family: 'Courier New', Courier, monospace;
+  box-sizing: border-box;
+  width: 0.8em;
+  border: 1px solid black;
+  height: 1em;
+  font-size: 1em;
 }

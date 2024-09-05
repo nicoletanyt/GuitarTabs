@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { context } from '../App';
 
-export default function TabList() {
+export default function SongList() {
     const { songs } = useContext(context);
 
   return (
