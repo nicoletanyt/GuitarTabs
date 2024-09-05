@@ -12,6 +12,10 @@ body {
 p {
   font-size: 1.3em;
 }
+input {
+  border: 1px solid grey;
+  border-radius: 3px;
+}
 .icon {
   font-size: 1.3em;
   padding: 3%;
@@ -104,17 +108,20 @@ p {
 #create-view {
   height: 100%;
   box-sizing: border-box;
+  margin-bottom: 5%;
+  overflow-y: scroll;
 }
 #create-top-bar {
   display: flex;
   justify-content: space-between;
 }
 .button {
+  white-space: nowrap;
   display: inline-flex;
   border-style: none;
   justify-content: space-evenly;
   align-items: center;
-  border-radius: 20px;
+  border-radius: 15px;
   border: 2px solid black;
   cursor: pointer;
   text-decoration: none;
@@ -126,7 +133,7 @@ p {
   padding-bottom: 0;
 }
 .button p {
-  padding-left: 10%;
+  padding-left: 5%;
 }
 #done-btn {
   background-color: lightgreen;
@@ -140,9 +147,6 @@ p {
   padding: 1%;
   font-size: 1em;
   margin: 3%;
-  border: none;
-  border-bottom: 1px solid black;
-  outline: none;
 }
 .notes {
   font-family: 'Courier New', Courier, monospace;
@@ -168,4 +172,23 @@ p {
   border: 1px solid black;
   height: 1em;
   font-size: 1em;
+}
+.lyric-input {
+  font-size: 1.3em;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  width: 100%;
+  padding: 0.5%;
+}
+.lyric-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.edit-btn {
+  display: flex;
+  align-items: center;
+  width: 7%;
+  justify-content: space-evenly;
+  cursor: pointer;
 }
