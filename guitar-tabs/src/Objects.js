@@ -1,8 +1,10 @@
 export class Song {
-    constructor(title, artist, tabs) {
+    constructor(title, artist, tabs, bpm, duration) {
         this.title = title
         this.artist = artist
         this.tabs = tabs
+        this.bpm = bpm
+        this.duration = duration
     }
 }
 

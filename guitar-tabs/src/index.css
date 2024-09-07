@@ -163,8 +163,8 @@ input {
   margin: 0;
 }
 .string-letter {
-  padding-right: 2%;
   font-weight: bold;
+  width: 3%;
 }
 .note-input {
   font-family: 'Courier New', Courier, monospace;
@@ -192,4 +192,8 @@ input {
   width: 7%;
   justify-content: space-evenly;
   cursor: pointer;
+}
+
+.playing {
+  background-color: aliceblue;
 }

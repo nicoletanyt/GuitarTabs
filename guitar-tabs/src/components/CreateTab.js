@@ -4,12 +4,14 @@ import { Song, Tab } from '../Objects';
 import { FaLessThan, FaCheck, FaPlus } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import { context } from '../App';
+import { tabSize } from '../App';
 
 export default function CreateTab() {
     const { songs, setSongs } = useContext(context);
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
-  const tabSize = 10
+  const [beats, setBeats] = useState(0)
+  const [duration, setDuration] = useState(0)
 
   // e.g. 4/4 beats
   // notes are stored as 1--0|----|----|----|----|----. the | indicates a new string, - indicates no note is played. numbers correspond to the fret number
@@ -34,7 +36,7 @@ export default function CreateTab() {
     console.log(setSongs)
     let dictKey =
       title.toLowerCase().split(" ").join("-") + "-" + artist.toLowerCase().split(" ").join("-");
-    setSongs((prev) => ({ ...prev, [dictKey]: new Song(title, artist, tabs) }));
+    setSongs((prev) => ({ ...prev, [dictKey]: new Song(title, artist, tabs, beats, duration) }));
   }
 
   return (
@@ -73,6 +75,26 @@ export default function CreateTab() {
             placeholder="Enter artist name..."
           />
         </div>
+        <div>
+          <label htmlFor="artist-input">Beats per minute: </label>
+          <input
+            type="text"
+            id="beats-input"
+            value={beats}
+            onChange={(ev) => setBeats(ev.target.value)}
+            placeholder="Enter BPM of song (optional)..."
+          />
+        </div>
+        <div>
+          <label htmlFor="artist-input">Duration of song: </label>
+          <input
+            type="text"
+            id="duration-input"
+            value={duration}
+            onChange={(ev) => setDuration(ev.target.value)}
+            placeholder="Enter duration of song (optional)..."
+          />
+        </div>
       </div>
       <p>Time Signature: 4/4</p>
       <p>Number of bars per row: 10</p>
@@ -80,7 +102,7 @@ export default function CreateTab() {
       <hr />
       <div id="tab-editor">
         {tabs.map((item, id) => {
-          return <TabView key={id} line={item} tabSize={tabSize} />;
+          return <TabView key={id} line={item} />;
         })}
       </div>
       <br />

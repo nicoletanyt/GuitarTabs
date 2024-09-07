@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
 
-export default function TabView({ line }) {
+export default function TabView({ line, currentBeat }) {
   // each tab line has 10 notes.
   // e.g. of notes: "1--0|--1-|--1-|--3-|--2-|-1--"
 
   const STRINGS = ["E", "B", "G", "D", "A", "E"];
   const [stringNotes, setStringNotes] = useState(line.notes.split("|"));
-  
+
   const [editNote, setEditNote] = useState(null);
   const [noteInput, setNoteInput] = useState("");
-  
-  const [editLyric, setEditLyric] = useState(null)
-  const [lyricInput, setLyricInput] = useState(line.lyric)
+
+  const [editLyric, setEditLyric] = useState(null);
+  const [lyricInput, setLyricInput] = useState(line.lyric);
 
   const changeNote = (ev) => {
     // change/add note here
@@ -48,30 +48,35 @@ export default function TabView({ line }) {
   };
 
   const submitLyric = (e) => {
-    e.preventDefault()
-    setEditLyric(false)
-  }
+    e.preventDefault();
+    setEditLyric(false);
+  };
 
   return (
     <div>
       {/* Display Lyric */}
-      {lyricInput == "" || editLyric ? (
-        <form onSubmit={(e) =>submitLyric(e)}>
+      {(lyricInput == "" || editLyric) ? (
+        <form onSubmit={(e) => submitLyric(e)}>
           <input
             className="lyric-input"
             type="text"
             value={lyricInput}
             placeholder={"Enter lyric..."}
-            onChange={(ev) => {setLyricInput(ev.target.value); !editLyric && setEditLyric(true)}}
+            onChange={(ev) => {
+              setLyricInput(ev.target.value);
+              !editLyric && setEditLyric(true);
+            }}
           />
         </form>
       ) : (
         <div className="lyric-wrapper">
           <p>{lyricInput}</p>
-          <div className="edit-btn" onClick={() => setEditLyric(true)}>
-            <FaPen className="icon" />
-            <p>Edit</p>
-          </div>
+          {
+            <div className="edit-btn" onClick={() => setEditLyric(true)}>
+              <FaPen className="icon" />
+              <p>Edit</p>
+            </div>
+          }
         </div>
       )}
       {/* Display Tab */}
@@ -95,7 +100,7 @@ export default function TabView({ line }) {
                     />
                   ) : (
                     // if it is 0, then use e has the letter to differentiate between first and last string
-                    <span key={k} index={id + "|" + k}>
+                    <span key={k} index={id + "|" + k} className={currentBeat == k ? "playing" : ""}>
                       {note}
                     </span>
                   );
