@@ -28,7 +28,7 @@ export default function TabView({ line, currentBeat, tabNum }) {
   };
 
   const confirmNote = (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     const row = editNote.split("|")[0];
     const col = editNote.split("|")[1];
 
@@ -51,6 +51,17 @@ export default function TabView({ line, currentBeat, tabNum }) {
     e.preventDefault();
     setEditLyric(false);
   };
+
+  const handleKey = (e, id, k) => {
+    if (e.key == "Tab" && k != stringNotes[0].length - 1) {
+      // if noteInput == "", no need to run confirm note, because value didn't change
+      if (noteInput != "") {
+        confirmNote(null)
+      }
+      setEditNote(id + "|" + (k + 1).toString())
+      if (stringNotes[id][k + 1] != "-") setNoteInput(stringNotes[id][k + 1]);
+    }
+  }
 
   return (
     <div className="tab-component">
@@ -97,6 +108,7 @@ export default function TabView({ line, currentBeat, tabNum }) {
                       maxLength={1}
                       onChange={(ev) => setNoteInput(ev.target.value)}
                       value={noteInput}
+                      onKeyDown={(ev) => handleKey(ev, id, k)}
                     />
                   ) : (
                     // if it is 0, then use e has the letter to differentiate between first and last string

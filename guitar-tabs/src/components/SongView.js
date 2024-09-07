@@ -50,6 +50,7 @@ export default function SongView() {
       </div>
       <p>{song.artist}</p>
       <p>Beats per minute (BPM): {song.bpm}</p>
+      <p>Duration of song: {Math.floor(song.duration/60) > 0 && Math.floor(song.duration/60) + " minutes"} {song.duration % 60 > 0 && song.duration % 60 + "seconds"}</p>
       <div className="player-btn-wrapper">
         {playing ? (
           <button className="button" onClick={() => setPlaying(false)}>
@@ -75,7 +76,9 @@ export default function SongView() {
       </div>
       <div>
         {song.tabs.map((item, id) => {
-          return <TabView key={id} line={item} currentBeat={current} tabNum={id}/>;
+          return (
+            <TabView key={id} line={item} currentBeat={current} tabNum={id} />
+          );
         })}
       </div>
     </div>

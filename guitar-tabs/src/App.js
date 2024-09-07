@@ -7,6 +7,7 @@ import { Song, Tab } from "./Objects";
 import CreateTab from "./components/CreateTab";
 
 export const context = React.createContext(null);
+export const searchContext = React.createContext(null);
 export const tabSize = 10;
 
 function App() {
@@ -21,16 +22,19 @@ function App() {
     "song-1-artist-1": new Song("Song 1", "Artist 1", [defaultTab, defaultTab, defaultTab, defaultTab, defaultTab], 70, 180),
     "song-2-artist-1": new Song("Song 2", "Artist 1", [defaultTab], 70, 180),
   });
+  const [search, setSearch] = useState("");
 
   return (
     <context.Provider value={{ songs, setSongs }}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/guitar-tabs/:id" element={<SongView />} />
-          <Route path="/create-tab" element={<CreateTab />} />
-        </Routes>
-      </BrowserRouter>
+      <searchContext.Provider value={{ search, setSearch }}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/guitar-tabs/:id" element={<SongView />} />
+            <Route path="/create-tab" element={<CreateTab />} />
+          </Routes>
+        </BrowserRouter>
+      </searchContext.Provider>
     </context.Provider>
   );
 }
