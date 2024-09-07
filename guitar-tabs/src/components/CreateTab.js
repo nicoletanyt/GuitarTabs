@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import TabView from './TabView';
 import { Song, Tab } from '../Objects';
-import { FaLessThan, FaCheck, FaPlus } from "react-icons/fa6";
+import { FaPlus, FaCheck, FaArrowLeft } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import { context } from '../App';
 import { tabSize } from '../App';
@@ -42,16 +42,17 @@ export default function CreateTab() {
   return (
     <div id="create-view">
       <div id="create-top-bar">
-        <Link to="/" id="back-btn" className="button">
-          <FaLessThan />
-          <p>Back</p>
-        </Link>
+        <div className="top-bar-left">
+          <Link to="/" className="back-btn button">
+            <FaArrowLeft className="icon" />
+          </Link>
+          <h1>Create Guitar Tab</h1>
+        </div>
         <Link to="/" id="done-btn" className="button" onClick={saveSong}>
-          <FaCheck />
-          <p>Done</p>
+          <FaCheck className="icon" />
+          <p>Save Tabs</p>
         </Link>
       </div>
-      <h1>Create Guitar Tab</h1>
       <br />
       {/* Input song details */}
       <div id="song-detail-input">
@@ -96,8 +97,6 @@ export default function CreateTab() {
           />
         </div>
       </div>
-      <p>Time Signature: 4/4</p>
-      <p>Number of bars per row: 10</p>
       <br />
       <hr />
       <div id="tab-editor">
@@ -107,7 +106,7 @@ export default function CreateTab() {
       </div>
       <br />
       <button id="add-tabs-btn" className="button" onClick={addTab}>
-        <FaPlus />
+        <FaPlus className="icon" />
         <p>Add more tabs</p>
       </button>
     </div>

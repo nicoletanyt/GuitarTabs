@@ -18,7 +18,7 @@ function App() {
   );
   // the key of the dictionary is the title + artist joined
   const [songs, setSongs] = useState({
-    "song-1-artist-1": new Song("Song 1", "Artist 1", [defaultTab], 70, 180),
+    "song-1-artist-1": new Song("Song 1", "Artist 1", [defaultTab, defaultTab, defaultTab, defaultTab, defaultTab], 70, 180),
     "song-2-artist-1": new Song("Song 2", "Artist 1", [defaultTab], 70, 180),
   });
 

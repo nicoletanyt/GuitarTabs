@@ -8,7 +8,7 @@ export default function Tabbar() {
     <div id="tab-bar">
       <h1>Guitar Tabs</h1>
       <Searchbar />
-      <Link to="/create-tab" id="create-tab-btn">
+      <Link to="/create-tab" id="create-tab-btn" className='button'>
         <FaPlus className="icon" />
         <p>Create tabs</p>
       </Link>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
 
-export default function TabView({ line, currentBeat }) {
+export default function TabView({ line, currentBeat, tabNum }) {
   // each tab line has 10 notes.
   // e.g. of notes: "1--0|--1-|--1-|--3-|--2-|-1--"
 
@@ -53,7 +53,7 @@ export default function TabView({ line, currentBeat }) {
   };
 
   return (
-    <div>
+    <div className="tab-component">
       {/* Display Lyric */}
       {(lyricInput == "" || editLyric) ? (
         <form onSubmit={(e) => submitLyric(e)}>
@@ -100,7 +100,7 @@ export default function TabView({ line, currentBeat }) {
                     />
                   ) : (
                     // if it is 0, then use e has the letter to differentiate between first and last string
-                    <span key={k} index={id + "|" + k} className={currentBeat == k ? "playing" : ""}>
+                    <span key={k} index={id + "|" + k} className={(currentBeat % 40 == k && Math.floor(currentBeat/40) == tabNum) ? "playing" : ""}>
                       {note}
                     </span>
                   );
