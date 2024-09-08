@@ -32,16 +32,25 @@ export default function CreateTab() {
     ]);
   };
 
+  const handleEditedSong = (data) => {
+    const updatedTab = tabs.map((t, id) =>
+      id == data.id ? new Tab(data.lyrics, data.tabs) : t
+    );
+    setTabs(updatedTab)
+  }
+
   const saveSong = () => {
-    console.log(setSongs)
     let dictKey =
       title.toLowerCase().split(" ").join("-") + "-" + artist.toLowerCase().split(" ").join("-");
+    console.log(new Song(title, artist, tabs, beats, duration));
     setSongs((prev) => ({ ...prev, [dictKey]: new Song(title, artist, tabs, beats, duration) }));
+    // save to local storage 
+    localStorage.setItem("guitar-tab-songs", JSON.stringify(songs))
   }
 
   return (
     <div id="create-view">
-      <div id="create-top-bar">
+      <div className="create-top-bar">
         <div className="top-bar-left">
           <Link to="/" className="back-btn button">
             <FaArrowLeft className="icon" />
@@ -101,7 +110,15 @@ export default function CreateTab() {
       <hr />
       <div id="tab-editor">
         {tabs.map((item, id) => {
-          return <TabView key={id} line={item} />;
+          return (
+            <TabView
+              key={id}
+              line={item}
+              tabNum={id}
+              editable={true}
+              handleEditedSong={handleEditedSong}
+            />
+          );
         })}
       </div>
       <br />

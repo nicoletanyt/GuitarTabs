@@ -95,9 +95,6 @@ button {
   overflow-x: hidden;
   padding-bottom: 10%;
 }
-#tablist-wrapper::-webkit-scrollbar, #create-view::-webkit-scrollbar {
-  display: none;
-}
 .song-display {
   box-sizing: border-box;
   border: 1px solid black;
@@ -121,13 +118,18 @@ button {
   margin-bottom: 5%;
   overflow-y: scroll;
 }
-#create-top-bar {
+.create-top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .top-bar-left {
-  display: inline-flex;
+  display: flex;
+  white-space: nowrap;
+  justify-content: space-between;
+}
+.title-wrapper {
+  display: flex;
   white-space: nowrap;
 }
 .back-btn {

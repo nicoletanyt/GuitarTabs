@@ -1,14 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams, Link, useSearchParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { context } from "../App";
-import { FaArrowLeft, FaPlay, FaPause } from "react-icons/fa6";
+import { FaArrowLeft, FaPlay, FaPause, FaPen, FaCheck } from "react-icons/fa6";
 import { MdRestartAlt } from "react-icons/md";
 import TabView from "./TabView";
+import { Tab } from "../Objects";
 
 export default function SongView() {
   const { id } = useParams();
   const { songs } = useContext(context);
-  const song = songs[id];
+  let song = songs[id];
+
+  const [editable, setEditable] = useState(false)
+  const [editedSong, setEditedSong] = useState(song);
 
   // for playing of song
   const [current, setCurrent] = useState(-1);
@@ -16,8 +20,17 @@ export default function SongView() {
 
   const tick = () => {
     setCurrent((c) => c + 1);
-      // at the end of the tab, scroll down by one tab height 
-    console.log()
+  };
+
+  const saveChanges = () => {
+    setEditable(false);
+    songs[id] = editedSong
+    // save to local storage
+    localStorage.setItem("guitar-tab-songs", JSON.stringify(songs));
+  }
+  const handleEditedSong = (data) => {
+    song.tabs[data.id] = new Tab(data.lyrics, data.tabs);
+    setEditedSong(song);
   };
 
   useEffect(() => {
@@ -32,25 +45,44 @@ export default function SongView() {
   }, [playing]);
   
   useEffect(() => {
+    // at the end of the tab, scroll down by one tab height
     if (current % 39 == 0) {
       window.scroll({
         top: document.querySelector(".tab-component").clientHeight,
-        behavior: "instant"
+        behavior: "instant",
       });
     }
   }, [current])
 
   return (
     <div id="tabview-wrapper">
-      <div className="top-bar-left">
-        <Link to="/" className="button back-btn">
-          <FaArrowLeft className="icon" />
-        </Link>
-        <h1>{song.title}</h1>
+      <div className="create-top-bar">
+        <div className="title-wrapper">
+          <Link to="/" className="button back-btn">
+            <FaArrowLeft className="icon" />
+          </Link>
+          <h1>{song.title}</h1>
+        </div>
+        {editable ? (
+          <div className="edit-btn" onClick={saveChanges}>
+            <FaCheck className="icon" />
+            <p>Done</p>
+          </div>
+        ) : (
+          <div className="edit-btn" onClick={() => setEditable(true)}>
+            <FaPen className="icon" />
+            <p>Edit</p>
+          </div>
+        )}
       </div>
       <p>{song.artist}</p>
       <p>Beats per minute (BPM): {song.bpm}</p>
-      <p>Duration of song: {Math.floor(song.duration/60) > 0 && Math.floor(song.duration/60) + " minutes"} {song.duration % 60 > 0 && song.duration % 60 + "seconds"}</p>
+      <p>
+        Duration of song:{" "}
+        {Math.floor(song.duration / 60) > 0 &&
+          Math.floor(song.duration / 60) + " minutes"}{" "}
+        {song.duration % 60 > 0 && (song.duration % 60) + "seconds"}
+      </p>
       <div className="player-btn-wrapper">
         {playing ? (
           <button className="button" onClick={() => setPlaying(false)}>
@@ -77,7 +109,14 @@ export default function SongView() {
       <div>
         {song.tabs.map((item, id) => {
           return (
-            <TabView key={id} line={item} currentBeat={current} tabNum={id} />
+            <TabView
+              key={id}
+              line={item}
+              currentBeat={current}
+              tabNum={id}
+              editable={editable}
+              handleEditedSong={handleEditedSong}
+            />
           );
         })}
       </div>

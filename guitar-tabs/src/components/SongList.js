@@ -23,13 +23,13 @@ export default function SongList() {
     }
   }, [search]);
 
-  useEffect(() => {
-    console.log(songsShown)
-  }, [songsShown])
+  // useEffect(() => {
+  //   console.log(songsShown)
+  // }, [songsShown])
 
   return (
     <div id="tablist-wrapper">
-      {songsShown.length > 0 &&
+      {songsShown.length > 0 ?
         songsShown.map((songTitle, id) => {
           return (
             <div key={id} className="song-display">
@@ -39,7 +39,8 @@ export default function SongList() {
               <p>{songs[songTitle].artist}</p>
             </div>
           );
-        })}
+        }) : <p>No songs match your search.</p>
+      }
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { FaPen } from "react-icons/fa";
 
-export default function TabView({ line, currentBeat, tabNum }) {
+export default function TabView({ line, currentBeat, tabNum, editable, handleEditedSong }) {
   // each tab line has 10 notes.
   // e.g. of notes: "1--0|--1-|--1-|--3-|--2-|-1--"
 
@@ -56,17 +55,25 @@ export default function TabView({ line, currentBeat, tabNum }) {
     if (e.key == "Tab" && k != stringNotes[0].length - 1) {
       // if noteInput == "", no need to run confirm note, because value didn't change
       if (noteInput != "") {
-        confirmNote(null)
+        confirmNote(null);
       }
-      setEditNote(id + "|" + (k + 1).toString())
+      setEditNote(id + "|" + (k + 1).toString());
       if (stringNotes[id][k + 1] != "-") setNoteInput(stringNotes[id][k + 1]);
     }
-  }
+  };
+
+  useEffect(() => {
+    handleEditedSong({
+      id: tabNum,
+      tabs: stringNotes.join("|"),
+      lyrics: lyricInput,
+    });
+  }, [stringNotes, lyricInput])
 
   return (
     <div className="tab-component">
       {/* Display Lyric */}
-      {(lyricInput == "" || editLyric) ? (
+      {(lyricInput == "" || editLyric) && editable ? (
         <form onSubmit={(e) => submitLyric(e)}>
           <input
             className="lyric-input"
@@ -82,12 +89,6 @@ export default function TabView({ line, currentBeat, tabNum }) {
       ) : (
         <div className="lyric-wrapper">
           <p>{lyricInput}</p>
-          {
-            <div className="edit-btn" onClick={() => setEditLyric(true)}>
-              <FaPen className="icon" />
-              <p>Edit</p>
-            </div>
-          }
         </div>
       )}
       {/* Display Tab */}
@@ -99,7 +100,7 @@ export default function TabView({ line, currentBeat, tabNum }) {
             <form onSubmit={confirmNote}>
               <p className="notes" onClick={(ev) => changeNote(ev)}>
                 {notes.map((note, k) => {
-                  return editNote == id + "|" + k ? (
+                  return editNote == id + "|" + k && editable ? (
                     <input
                       onSubmit={confirmNote}
                       key={k}
@@ -112,7 +113,16 @@ export default function TabView({ line, currentBeat, tabNum }) {
                     />
                   ) : (
                     // if it is 0, then use e has the letter to differentiate between first and last string
-                    <span key={k} index={id + "|" + k} className={(currentBeat % 40 == k && Math.floor(currentBeat/40) == tabNum) ? "playing" : ""}>
+                    <span
+                      key={k}
+                      index={id + "|" + k}
+                      className={
+                        currentBeat % 40 == k &&
+                        Math.floor(currentBeat / 40) == tabNum
+                          ? "playing"
+                          : ""
+                      }
+                    >
                       {note}
                     </span>
                   );

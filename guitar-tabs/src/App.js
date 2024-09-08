@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css"
 import Homepage from "./components/Homepage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -18,11 +18,16 @@ function App() {
       .join("|")
   );
   // the key of the dictionary is the title + artist joined
-  const [songs, setSongs] = useState({
-    "song-1-artist-1": new Song("Song 1", "Artist 1", [defaultTab, defaultTab, defaultTab, defaultTab, defaultTab], 70, 180),
-    "song-2-artist-1": new Song("Song 2", "Artist 1", [defaultTab], 70, 180),
-  });
+  const [songs, setSongs] = useState(null);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    // get data from local storage
+    let data = localStorage.getItem("guitar-tab-songs");
+    if (data) {
+      setSongs(JSON.parse(data));
+    }
+  }, [])
 
   return (
     <context.Provider value={{ songs, setSongs }}>
