@@ -70,6 +70,10 @@ export default function TabView({ line, currentBeat, tabNum, editable, handleEdi
     });
   }, [stringNotes, lyricInput])
 
+  useEffect(() => {
+    setEditLyric(true)
+  }, [editable])
+
   return (
     <div className="tab-component">
       {/* Display Lyric */}

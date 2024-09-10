@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
 import Tabbar from './Tabbar'
 import SongList from './SongList'
-import { context } from '../App';
 
 export default function Homepage() {
-  const { songs } = useContext(context);
+  const songs = JSON.parse(localStorage.getItem("guitar-tab-songs"));
+
   return (
     <div id="homepage">
       <Tabbar />
-      {songs ? <SongList /> : <p>Loading</p>}
+      {songs != null ? <SongList /> : <p>No songs added.</p>}
     </div>
   );
 }

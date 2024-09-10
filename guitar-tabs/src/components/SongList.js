@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { context, searchContext } from "../App";
+import { searchContext } from "../App";
+import { FaTrash } from "react-icons/fa";
 
 export default function SongList() {
-  const { songs } = useContext(context);
+  const songs = JSON.parse(localStorage.getItem("guitar-tab-songs"));
   const { search } = useContext(searchContext);
 
   const [songsShown, setSongsShown] = useState(Object.keys(songs));
@@ -28,19 +29,23 @@ export default function SongList() {
   // }, [songsShown])
 
   return (
-    <div id="tablist-wrapper">
+    <ol id="tablist-wrapper">
       {songsShown.length > 0 ?
         songsShown.map((songTitle, id) => {
+          if (songs[songTitle])
           return (
             <div key={id} className="song-display">
-              <Link to={`/guitar-tabs/${songTitle}`} className="song-title">
-                <h2>{songs[songTitle].title}</h2>
-              </Link>
-              <p>{songs[songTitle].artist}</p>
+              <div>
+                <Link to={`/guitar-tabs/${songTitle}`} className="song-title">
+                  <p><span className="number">{id + 1}.</span> {songs[songTitle].title}</p>
+                </Link>
+                <p className="song-artist">{songs[songTitle].artist}</p>
+                <br/>
+              </div>
             </div>
           );
         }) : <p>No songs match your search.</p>
       }
-    </div>
+    </ol>
   );
 }

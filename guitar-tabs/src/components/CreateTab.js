@@ -7,7 +7,6 @@ import { context } from '../App';
 import { tabSize } from '../App';
 
 export default function CreateTab() {
-    const { songs, setSongs } = useContext(context);
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
   const [beats, setBeats] = useState(0)
@@ -23,6 +22,7 @@ export default function CreateTab() {
           .join("|")
       )
   const [tabs, setTabs] = useState([defaultTab]);
+  const songs = JSON.parse(localStorage.getItem("guitar-tab-songs"));
   // 1--0|1---|1---|--3-|-2--|--1-
 
   const addTab = () => {
@@ -42,10 +42,8 @@ export default function CreateTab() {
   const saveSong = () => {
     let dictKey =
       title.toLowerCase().split(" ").join("-") + "-" + artist.toLowerCase().split(" ").join("-");
-    console.log(new Song(title, artist, tabs, beats, duration));
-    setSongs((prev) => ({ ...prev, [dictKey]: new Song(title, artist, tabs, beats, duration) }));
-    // save to local storage 
-    localStorage.setItem("guitar-tab-songs", JSON.stringify(songs))
+    localStorage.setItem("guitar-tab-songs", JSON.stringify({
+      ...songs, [dictKey]: new Song(title, artist, tabs, beats, duration) }))
   }
 
   return (

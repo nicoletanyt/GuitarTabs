@@ -85,26 +85,25 @@ button {
 }
 
 #tablist-wrapper {
-  display: grid;
-  grid-template-columns: 100%;
-  row-gap: 10%;
   margin-top: 3%;
   width: 55%;
   align-self: center;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-bottom: 10%;
+  height: 85%;
 }
 .song-display {
-  box-sizing: border-box;
-  border: 1px solid black;
-  /* background-color:aliceblue; */
   width: 100%;
-  padding: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .song-title {
   text-decoration: none;
   color: black;
+}
+.song-artist {
+  font-size: 1em;
 }
 
 #tabview-wrapper, #create-view {
@@ -195,9 +194,40 @@ button {
 .edit-btn {
   display: flex;
   align-items: center;
-  width: 7%;
   justify-content: space-evenly;
   cursor: pointer;
+  padding: 5%;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(16, 125, 16, 0.884);
+  border-radius: 15px;
+  color: white;
+  margin: 5%;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.buttons-wrapper {
+  display: flex;
+  width: 20%;
+}
+.buttons-wrapper div {
+  width: 50%;
+}
+.delete-btn {
+  display: flex;
+  align-items: center;
+  color: white;
+  background-color: red;
+  justify-content: space-between;
+  border-radius: 15px;
+  padding: 5%;
+  padding-top: 0;
+  padding-bottom: 0;
+  cursor: pointer;
+}
+.delete-wrapper p {
+  font-size: 1em;
+  font-weight: 500;
 }
 
 .playing {
